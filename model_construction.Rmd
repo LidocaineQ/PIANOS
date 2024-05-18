@@ -1,0 +1,77 @@
+---
+title: "model_training"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(survival)
+library(gfplot)
+library(gaofenglib)
+library(ggplot2)
+library(switchBox)
+library(tidyverse)
+extrafont::loadfonts()
+```
+
+```{r}
+para_exclu <- 1
+para_means <- 0
+para_mads <- 0.9
+para_sample <-0.7
+para_acc <- 0
+```
+
+```{r}
+para <- df[k,]
+
+ind <- which((clin$dfs.event == 1 & clin$dfs.delay <= 36) |
+                 clin$dfs.event == 0 & clin$dfs.delay >=60)
+clin <- clin[ind,]
+data <- data[ind,]
+
+mads <- apply(data, 2, mad)
+means <- apply(data, 2, mean)
+
+data <- data[, means >= quantile(means, para$para_means) & mads > quantile(mads, para$para_mads)]
+
+doParallel::registerDoParallel(100)
+model_all <- foreach(i = 1:100) %dopar% {
+  limit <- 60
+  set.seed(i)
+  ind <- sample(1:nrow(clin), nrow(clin) * para$para_sample)
+  clin.dis <- clin[ind,]
+  pt_id <- rownames(clin.dis)
+  rfs.dis <- get_survival(clin.dis)
+  data.dis <- data[pt_id,]
+  event <- rfs.dis[, 2] == 1
+  time <- rfs.dis[, 1]
+  event[time > limit] <- F
+  group <- factor(event, levels = c(F, T))
+  
+  classifier <- SWAP.Train.KTSP(t(data.dis), group)
+  
+  clin.dis <- clin[-ind,]
+  pt_id <- rownames(clin.dis)
+  rfs.dis <- get_survival(clin.dis)
+  data.dis <- data[pt_id,]
+  event <- rfs.dis[, 2] == 1
+  time <- rfs.dis[, 1]
+  event[time > limit] <- F
+  group <- factor(event, levels = c(F, T))
+  
+  labs <- SWAP.KTSP.Classify(t(data.dis), classifier)
+  confuse_mat <- table(labs, group)
+  
+  TP <- confuse_mat[1,1]/(confuse_mat[1,1] + confuse_mat[2,1])
+  TN <- confuse_mat[2,2]/(confuse_mat[1,2] + confuse_mat[2,2])
+  balanced_acc <- (TP + TN)/2
+  list(balanced_acc = balanced_acc,
+       classifier = classifier)
+ }
+k_tsp <- lapply(model_all, function(x) x$classifier)
+bal_acc <- sapply(model_all, function(x) x$balanced_acc)
+names(k_tsp) <- paste0("k_tsp", 1:length(k_tsp))
+ids <- which(bal_acc > 0.6)
+k_tsp <- k_tsp[ids]
+```
