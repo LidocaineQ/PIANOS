@@ -26,12 +26,12 @@ The model usage instructions are detailed in the file "model_usage.Rmd".
 
 ### Data Description：
 The model's input consists of patients' gene expression data in the following format:
-
+```
     sample| Gene1 | Gene2 | Gene3 | ... 
     --- | --- | --- | --- | --- 
     Patient 1 |expression | expression | expression | ... 
     Patient 2 |expression | expression | expression | ... 
     ... | ... |	... | ... |	... 
-
+```
 ### Model Prediction：
 The model's output includes the patient's PIANOS score and stratification results.
