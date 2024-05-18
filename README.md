@@ -1,4 +1,4 @@
-#PIANOS: Platform Independent and Normalization Free Single-sample Classifier
+###PIANOS: Platform Independent and Normalization Free Single-sample Classifier
 
 In this project, we developed PIANOS using a pathway-based k-TSP algorithm combined with resampling and ensemble modeling methods.
 
