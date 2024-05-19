@@ -69,9 +69,9 @@ model_all <- foreach(i = 1:100) %dopar% {
   list(balanced_acc = balanced_acc,
        classifier = classifier)
  }
-k_tsp <- lapply(model_all, function(x) x$classifier)
+pianos <- lapply(model_all, function(x) x$classifier)
 bal_acc <- sapply(model_all, function(x) x$balanced_acc)
-names(k_tsp) <- paste0("k_tsp", 1:length(k_tsp))
+names(pianos) <- paste0("k_tsp", 1:length(pianos))
 ids <- which(bal_acc > 0.6)
-k_tsp <- k_tsp[ids]
+pianos <- pianos[ids]
 ```

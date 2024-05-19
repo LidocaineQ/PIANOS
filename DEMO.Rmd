@@ -1,0 +1,34 @@
+---
+title: "ACICAM"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(switchBox)
+library(gfplot)
+library(gaofenglib)
+library(DeepCC)
+library(tidyverse)
+```
+
+```{r}
+load("PIANOS.RData")
+load("ACICAM.RData")
+
+eps_data <- clean_dat(data, keytype = "SYMBOL", column = "ENTREZID")
+fs_data <- getFunctionalSpectra(eps_data)
+res_data <- lapply(pianos,function(x) SWAP.KTSP.Classify(t(fs_data), x))
+res_data <- lapply(res_data, as.logical)
+rs_data <- Reduce(function(a,b) a+b, res_data)
+labs_data <- factor(rs_data > length(res_data)/2, levels = c(F, T), labels = c("Low Risk", "High Risk"))
+rst_data <- data.frame(datasets= "data",
+             RiskGroup = labs_data,
+             RiskScore = rs_data
+             )
+rownames(rst_data) <- rownames(fs_data)
+rst_data$id <- rownames(rst_data)
+```
