@@ -36,3 +36,7 @@ The model's input consists of patients' gene expression data in the following fo
   
 ### Model Prediction：
 The model's output includes the patient's PIANOS score and stratification results.
+
+
+### DEMO
+We have uploaded the gene expression files of the publicly available ACICAM dataset along with the relevant code for usage, detailed in the file "DEMO.Rmd".
