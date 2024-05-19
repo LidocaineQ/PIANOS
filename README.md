@@ -21,10 +21,10 @@ DeepCC
 ## Model Construction
 The model construction method is detailed in the file "model_construction.Rmd".
 
-## Usage：
+## Usage
 The model usage instructions are detailed in the file "model_usage.Rmd".
 
-### Data Description：
+### Data Description
 The model's input consists of patients' gene expression data in the following format:
   
 | sample | gene1 | gene2 | gene3 | ... | gene |
@@ -34,7 +34,7 @@ The model's input consists of patients' gene expression data in the following fo
 | ... | ... | ... | ... | ... | ... |
 | patient | 5.22185205784889 | 2.20199502833056 | 5.3918173202651 | ... | 6.9666661456165 |
   
-### Model Prediction：
+### Model Prediction
 The model's output includes the patient's PIANOS score and stratification results.
 
 
