@@ -40,3 +40,4 @@ The model's output includes the patient's PIANOS score and stratification result
 
 ### DEMO
 We have uploaded the gene expression files of the publicly available ACICAM dataset along with the relevant code for usage, detailed in the file "DEMO.Rmd".
+Source of public data: PMID: 37202560
