@@ -2,8 +2,9 @@
 
 In this project, we developed PIANOS using a pathway-based k-TSP algorithm combined with resampling and ensemble modeling methods.
 
-The model developed using the CIT cohort, offers prognostic risk stratification for individual colorectal cancer patients based on genetic sequencing data from any source. This model eliminates the constraints of pre-constructed cohorts and predefined cutoff values, providing a more flexible and precise approach to patient prognosis..
+The model developed using the CIT cohort, offers prognostic risk stratification for individual colorectal cancer patients based on genetic sequencing data from any source. This model eliminates the constraints of pre-constructed cohorts and predefined cutoff values, providing a more flexible and precise approach to patient prognosis. The following figure describe the construction of PIANOS.
 
+![image](https://github.com/LidocaineQ/PIANOS/blob/master/PIANOS.jpg)
 
 ## Requirements
 
