@@ -6,6 +6,8 @@ The model developed using the CIT cohort, offers prognostic risk stratification 
 
 ![image](https://github.com/LidocaineQ/PIANOS/blob/master/PIANOS.jpg)
 
+Given the differences in training cohorts and labels, our method has the potential for broader application across various tumor types, enhancing its utility and effectiveness in diverse oncological contexts.
+
 ## Requirements
 
 ```
