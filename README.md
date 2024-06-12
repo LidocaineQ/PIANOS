@@ -28,14 +28,14 @@ The model construction method is detailed in the file "model_construction.Rmd".
 The model usage instructions are detailed in the file "model_usage.Rmd".
 
 ### Data Description
-The model's input consists of patients' gene expression data in the following format:
+The model input is an 𝑛 × 𝑘 gene expression matrix. An example format is shown below:
   
-| sample | gene1 | gene2 | gene3 | ... | gene |
+|  | gene1 | gene2 | gene3 | ... | gene |
 | --- | --- | --- | --- | --- | --- |
-| patient | 5.15212166212432 | 2.88664048871183 | 5.3760491573249 | ... | 6.4355759773902 |
-| patient | 4.94997883745515 | 2.37108757063653 | 5.0852982410145 | ... | 6.6052447056984 |
+| patient 1 | 5.15212166212432 | 2.88664048871183 | 5.3760491573249 | ... | 6.4355759773902 |
+| patient 2 | 4.94997883745515 | 2.37108757063653 | 5.0852982410145 | ... | 6.6052447056984 |
 | ... | ... | ... | ... | ... | ... |
-| patient | 5.22185205784889 | 2.20199502833056 | 5.3918173202651 | ... | 6.9666661456165 |
+| patient n | 5.22185205784889 | 2.20199502833056 | 5.3918173202651 | ... | 6.9666661456165 |
   
 ### Model Prediction
 The model's output includes the patient's PIANOS score and stratification results.
