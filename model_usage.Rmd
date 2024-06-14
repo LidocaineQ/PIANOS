@@ -3,7 +3,20 @@ title: "model_usage"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```
+install.packages("survival")
+install.packages("ggplot2")
+install.packages("tidyverse")
+
+install.packages("BiocManager")
+BiocManager::install("switchBox")
+BiocManager::install("org.Hs.eg.db")
+
+install.packages("devtools")
+devtools::install_github("gflab/gfplot")
+devtools::install_github("gaofeng21cn/gaofenglib")
+devtools::install_github("CityUHK-CompBio/DeepCC")
+
 library(switchBox)
 library(gaofenglib)
 library(DeepCC)
