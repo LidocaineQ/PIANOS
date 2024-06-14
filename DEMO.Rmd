@@ -3,8 +3,19 @@ title: "ACICAM"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```
+install.packages("survival")
+install.packages("ggplot2")
+install.packages("tidyverse")
+
+install.packages("BiocManager")
+BiocManager::install("switchBox")
+BiocManager::install("org.Hs.eg.db")
+
+install.packages("devtools")
+devtools::install_github("gflab/gfplot")
+devtools::install_github("gaofeng21cn/gaofenglib")
+devtools::install_github("CityUHK-CompBio/DeepCC")
 ```
 
 ```{r}
