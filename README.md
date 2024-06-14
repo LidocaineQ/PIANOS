@@ -19,7 +19,20 @@ switchBox
 tidyverse
 DeepCC
 ```
+```
+install.packages("survival")
+install.packages("ggplot2")
+install.packages("tidyverse")
 
+install.packages("BiocManager")
+BiocManager::install("switchBox")
+BiocManager::install("org.Hs.eg.db")
+
+install.packages("devtools")
+devtools::install_github("gflab/gfplot")
+devtools::install_github("gaofeng21cn/gaofenglib")
+devtools::install_github("CityUHK-CompBio/DeepCC")
+```
 
 ## Model Construction
 The model construction method is detailed in the file "model_construction.Rmd".
