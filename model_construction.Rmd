@@ -2,7 +2,7 @@
 title: "model_training"
 output: html_document
 ---
-```
+```{r}
 install.packages("survival")
 install.packages("ggplot2")
 install.packages("tidyverse")
