@@ -1,0 +1,47 @@
+```{r}
+library(foreach)
+library(randomForestSRC)
+library(GSVA)
+library(survcomp)
+```
+
+```{r}
+rs_all <- foreach(k = 1:length(datasets)) %dopar% {
+  data <- datasets[[k]]
+  clin <- clin_all[substr(rownames(data), 1, 12),]
+  rfs <- get_survival(clin)
+  ind <- !is.na(rfs)
+  rfs <- rfs[ind]
+  data <- data[ind,]
+  res <- foreach(i = 1:length(panel_list), .combine = "cbind") %do%{
+    result <- tryCatch({
+      if(names(panel_list)[i] == "ColoFinder"){
+        model <- panel_list[[i]]$model
+        gene_list <- panel_list[[i]]$gene
+        rs <- predict.rfsrc(model, data.frame(data[,gene_list]))$predicted
+        rs
+      } else if(names(panel_list)[i] == "Tokunaga"){
+        rs <- gsva(t(data), panel_list[[i]], method='ssgsea', kcdf='Gaussian', abs.ranking=TRUE)
+        as.numeric(rs)
+      } else {
+      
+      model <- panel_list[[i]]
+      ids <- which(model$gene %in% colnames(data))
+      sym <- model$gene[ids]
+      tmp <- as.matrix(data[,sym])
+      rs <- apply(tmp, 1, function(x) sum(model$coef[ids] * x))
+      rs
+      }
+
+    }, error = function(e) {NA})
+    result
+  }
+  colnames(res) <- names(panel_list)
+  res
+}
+names(rs_all) <- names(datasets)
+
+cindex <- concordance.index(rs, surv.time = time, surv.event = event, method = "noether")
+p_value <- cindex.comp(cindex_model[[k]], cindex)$p.value
+```
+

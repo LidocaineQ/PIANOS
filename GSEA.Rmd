@@ -1,0 +1,25 @@
+```{r}
+library(clusterProfiler)
+library(limma)
+library(GseaVis)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+design <- model.matrix(~ group)
+fit <- lmFit(t(argo.mrna), design)
+fit <- eBayes(fit, trend=TRUE)
+output <- topTable(fit, coef=2,n=Inf)
+genelist <- output$logFC
+names(genelist)<- rownames(output)
+genelist <- genelist[order(genelist, decreasing = TRUE)]
+gsea <- GSEA(genelist,  
+    TERM2GENE = g2m,  
+    pvalueCutoff = 1,  
+    pAdjustMethod = 'BH',minGSSize = 10,maxGSSize = 10000) 
+gseaplot(gsea,"X")
+p <- gseaNb(object = gsea,geneSetID = 'X',newGsea = T, addPval = T,pvalX = 0.6,pvalY = 0.8,pHjust = 0)
+p
+```
+
