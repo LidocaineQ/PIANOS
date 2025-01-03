@@ -33,8 +33,6 @@ para_acc <- 0
 ```
 
 ```{r}
-para <- df[k,]
-
 ind <- which((clin$dfs.event == 1 & clin$dfs.delay <= 36) |
                  clin$dfs.event == 0 & clin$dfs.delay >=60)
 clin <- clin[ind,]
@@ -43,13 +41,13 @@ data <- data[ind,]
 mads <- apply(data, 2, mad)
 means <- apply(data, 2, mean)
 
-data <- data[, means >= quantile(means, para$para_means) & mads > quantile(mads, para$para_mads)]
+data <- data[, means >= quantile(means, para_means) & mads > quantile(mads, para_mads)]
 
 doParallel::registerDoParallel(100)
 model_all <- foreach(i = 1:100) %dopar% {
   limit <- 60
   set.seed(i)
-  ind <- sample(1:nrow(clin), nrow(clin) * para$para_sample)
+  ind <- sample(1:nrow(clin), nrow(clin) * para_sample)
   clin.dis <- clin[ind,]
   pt_id <- rownames(clin.dis)
   rfs.dis <- get_survival(clin.dis)
