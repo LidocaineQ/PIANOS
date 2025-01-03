@@ -38,8 +38,8 @@ ind <- which((clin$dfs.event == 1 & clin$dfs.delay <= 36) |
 clin <- clin[ind,]
 data <- data[ind,]
 
-mads <- apply(data, 2, mad)
-means <- apply(data, 2, mean)
+mads <- apply(data, 2, para_mads)
+means <- apply(data, 2, para_means)
 
 data <- data[, means >= quantile(means, para_means) & mads > quantile(mads, para_mads)]
 
